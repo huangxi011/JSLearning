@@ -1,0 +1,22 @@
+{
+  "name": "jslearning",
+  "version": "1.0.0",
+  "description": "a learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huangxi011/JSLearning.git"
+  },
+  "keywords": [
+    "learning"
+  ],
+  "author": "huangxi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/huangxi011/JSLearning/issues"
+  },
+  "homepage": "https://github.com/huangxi011/JSLearning#readme"
+}
