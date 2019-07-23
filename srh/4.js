@@ -1,4 +1,5 @@
 //该程序用于求水仙花数
+//用while循环才是正常人的方法
 var numbers=[1,0,0,0,0];
 for(;numbers[0]<=9;numbers[0]++)
 {
