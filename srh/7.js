@@ -1,4 +1,4 @@
-//该程序用来求5阶幻方
+//该程序用来求任意阶幻方
 var n=9; //幻方的阶数
 var arrayDim2=new Array();
 var arrayDim1=new Array();
