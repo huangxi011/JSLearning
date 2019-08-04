@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title></title>
+    </head>
+    <body style="margin: 0">
+        <div style="height: 200px">
+            <div style="float: left; margin: 0 8px" >
+                <img src="./img/baidu.png"/>
+            </div>
+            <div style="float: left">
+                <div>
+                    <p>问题：</p><span id="question">正在获取问题</span>
+                </div>
+                <table id="options">
+                    <thead>
+                        <tr>
+                            <td>选项ID</td>
+                            <td>选项内容</td>
+                            <td>节点状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <p id="status"></p>
+        </div>
+        <!--代码模板-->
+        <script id="template" type="text/html">
+            <tr>
+                <td id="ID"></td>
+                <td id="Content"><a href="javascript:;"></a></td>
+                <td id="NextNodeType"></td>
+            </tr>
+        </script>
+        <!--引用类库-->
+        <script src="http://template.ricebird.cn/axios.js"></script>
+        <script src="js/jquery-3.4.1.js"></script>
+        <!--程序代码-->
+        <script>
+            var emptyGuid="00000000-0000-0000-0000-000000000000";
+            GetQuestion(emptyGuid);
+            function GetQuestion(Guid){
+                $("#status").html("正在获取问题");
+                jQuery.post("http://hh.ricebird.cn/api/hospital/GetNextQuestion", {id: Guid}, function (msg) {
+                    if(msg.success == true){
+                        $("#status").html("成功");
+                    }
+                    else{
+                        $("#status").html("失败");
+                    }
+                    $("#question").html(msg.data.QuestionName);
+                    $("#options > tbody").empty();
+                    let template=$("#template").html();
+                    for(option of msg.data.options)
+                    {
+                        let obj=$(template);
+                        $("#ID",obj).html(option.ID);
+                        $("#Content > a",obj).html(option.Content);
+                        $("#NextNodeType",obj).html(option.NextNodeType);
+                        $("#Content",obj).click(function(){
+                            GetQuestion(option.ID);
+                        });
+                        $("#options > tbody").append(obj);
+                    }
+                })
+            }
+        </script>
+
+    </body>
+</html>

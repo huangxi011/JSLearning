@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>医院查询</title>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <td>GUID</td>
+                    <td>医院名</td>
+                    <td>当前状态</td>
+                    <td>抓取时间</td>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+        <div><p>第<span id="currentPage"></span>页&nbsp;共<span id="totalPage"></span>页</p></div>
+        <button onclick="NextPage()">下一页</button>
+        <button onclick="PreviousPage()">上一页</button>
+        <button onclick="SearchHospital()">查找医院</button>
+        <input id="inputbox" type="text" value=""/>
+
+        <!--引用类库-->
+        <script src="http://template.ricebird.cn/axios.js"></script>
+        <script src="js/jquery-3.4.1.js"></script>
+        <!--文字模板-->
+        <script id="template" type="text/html">
+          <tr>
+            <td class="id"></td>
+            <td class="hospitalName"></td>
+            <td class="displayStatus"></td>
+            <td class="uploadTime"></td>
+          </tr>
+        </script>
+        <!--程序代码-->
+        <script>
+            GetHospital(1);
+            function SearchHospital()
+            {
+                var hospitalName = $("#inputbox").val();
+                jQuery.post("http://hh.ricebird.cn/api/hospital/GetAssignHospitals", {keyword: hospitalName}, function (msg) {
+                    var tempalte = $("#template").html();
+                    $("#tbody").empty();
+                    for (var ele of msg.data) {
+                    var obj = $(tempalte);
+                    console.log(msg);
+                    //给对象赋值
+                    $(".id", obj).html(ele.ID);
+                    $(".hospitalName", obj).html(ele.HospitalName);
+                    $(".uploadTime", obj).html(ele.UploadTime);
+                    $(".displayStatus", obj).html(ele.DisplayStatus);
+                    $("#tbody").append(obj);
+                    }
+                    $("#currentPage").html(msg.page); //将当前页数写到网页中
+                    $("#totalPage").html(Math.ceil(msg.totalRow/10)); //将总页数写到网页中
+                })
+            }
+            function GetHospital(pageNumber){
+                jQuery.post("http://hh.ricebird.cn/api/hospital/GetAssignHospitals", {page: pageNumber}, function (msg) {
+                    var tempalte = $("#template").html();
+                    $("#tbody").empty();
+                    for (var ele of msg.data) {
+                    var obj = $(tempalte);
+                    console.log(msg);
+                    //给对象赋值
+                    $(".id", obj).html(ele.ID);
+                    $(".hospitalName", obj).html(ele.HospitalName);
+                    $(".uploadTime", obj).html(ele.UploadTime);
+                    $(".displayStatus", obj).html(ele.DisplayStatus);
+                    $("#tbody").append(obj);
+                    }
+                    $("#currentPage").html(msg.page); //将当前页数写到网页中
+                    $("#totalPage").html(Math.ceil(msg.totalRow/10)); //将总页数写到网页中
+                })
+            }
+            function NextPage(){
+                var currentPage = $("#currentPage").html();
+                GetHospital(parseInt(currentPage) + 1);
+            }
+            function PreviousPage(){
+                var currentPage = $("#currentPage").html();
+                GetHospital(parseInt(currentPage) - 1);
+            }
+        </script>
+    </body>
+</html>
