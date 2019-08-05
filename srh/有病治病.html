@@ -2,18 +2,24 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
-        <title></title>
+        <title>分诊</title>
+        <style>
+            .table-center td{
+                text-align: center;
+            }
+        </style>
     </head>
     <body style="margin: 0">
         <div style="height: 200px">
             <div style="float: left; margin: 0 8px" >
                 <img src="./img/baidu.png"/>
+				<p>我是百度机器人</p>
             </div>
-            <div style="float: left">
-                <div>
+            <div style="float: left; border: aqua dashed 2px">
+                <div style="margin: 3px">
                     <p>问题：</p><span id="question">正在获取问题</span>
                 </div>
-                <table id="options">
+                <table class="table-center" id="options" border="1px" cellspacing="0px" cellpadding="5px" style="margin: 3px">
                     <thead>
                         <tr>
                             <td>选项ID</td>
