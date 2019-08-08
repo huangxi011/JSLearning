@@ -1,0 +1,23 @@
+bool check(int a, int b)
+{
+	if (a == 0 || b == 0)
+	{
+
+		printf("重新输入");
+		return false;
+	}
+	else if (a > 2147483647 || b > 2147483647)
+	{
+		printf("数字过大");
+		return false;
+	}
+	else if (a < -2147483647 || b < -2147483647)
+	{
+		printf("数字过小");
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}

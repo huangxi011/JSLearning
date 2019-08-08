@@ -1,0 +1,52 @@
+void Zhanzhuan()
+{
+	int a, b;
+	printf("请输入,两个数字用空格隔开\n");
+	
+	int  r;
+	int t = 0;//t用于验证scanf返回值
+	do
+	{
+		t = scanf("%d %d", &a,&b);
+		
+		while (getchar() != '\n') {};
+		if (t == 0)
+		{
+			printf("非法输入 重新输入\n");
+		}
+		else if ( a < 0 || b < 0)
+		{
+			
+			printf("请重新输入,确保为自然数\n");
+		}
+	} while (t == 0|| a < 0 || b <0 );
+
+	if (b > a||a==0||b==0)
+	{
+		if (a == 0&&b!=0||(a!=0&&b==0))
+		{
+			printf("两数没有最大公约数");
+			return ;
+		}
+		else if (a == 0 && b == 0)
+		{
+			printf("最大公约数为0");
+			return;
+		}
+		int temp = a;
+		a = b;
+		b = temp;
+	}
+	if (check(a, b))
+	{
+		while (b != 0)
+		{
+			r = a % b;
+			a = b;
+			b = r;
+		}
+		printf("最大公约数%d", a);
+	}
+	
+
+}
